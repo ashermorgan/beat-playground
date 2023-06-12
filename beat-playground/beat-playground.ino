@@ -112,17 +112,17 @@ Song song4 = {
     125, 46, 4, {
         { NoteBeat, 4 }, { NoteBeat, 4 }, { NoteBeat, 4 }, { NoteBeat, 4 },
 
-        { NoteC5, 4 },   { NoteD5, 4 }, { NoteF5, 4 }, { NoteD5, 4 },
-        { NoteC5, 2 },   { NoteD5, 2 }, { NoteC5, 1 }, { NoteBb4, 2 }, { NoteD5, 9 },
-        { NoteRest, 2 }, { NoteC5, 2 }, { NoteC5, 2 }, { NoteD5, 1 },  { NoteEb5, 3 },
-        { NoteD5, 2 },   { NoteC5, 2 }, { NoteBb4, 2 },
-        { NoteD5, 4 },   { NoteG4, 4 }, { NoteBb4, 8 },
+        { NoteGb4, 4 },  { NoteAb4, 4 }, { NoteB4, 4 },  { NoteAb4, 4 },
+        { NoteGb4, 2 },  { NoteAb4, 2 }, { NoteGb4, 1 }, { NoteE4, 2 },  { NoteAb4, 9 },
+        { NoteRest, 2 }, { NoteGb4, 2 }, { NoteGb4, 2 }, { NoteAb4, 1 }, { NoteA4, 3 },
+        { NoteAb4, 2 },  { NoteGb4, 2 }, { NoteE4, 2 },
+        { NoteAb4, 4 },  { NoteDb4, 4 }, { NoteE4, 8 },
 
-        { NoteC5, 4 },   { NoteD5, 4 }, { NoteF5, 4 }, { NoteD5, 4 },
-        { NoteC5, 2 },   { NoteD5, 2 }, { NoteC5, 1 }, { NoteBb4, 2 }, { NoteD5, 9 },
-        { NoteRest, 2 }, { NoteC5, 2 }, { NoteC5, 2 }, { NoteD5, 2 },
-        { NoteEb5, 2 },  { NoteD5, 2 }, { NoteC5, 1 }, { NoteBb4, 3 },
-        { NoteD5, 2 },   { NoteC4, 2 }, { NoteC4, 2 }, { NoteA4, 2 },  { NoteBb4, 8 },
+        { NoteGb4, 4 },  { NoteAb4, 4 }, { NoteB4, 4 },  { NoteAb4, 4 },
+        { NoteGb4, 2 },  { NoteAb4, 2 }, { NoteGb4, 1 }, { NoteE4, 2 },  { NoteAb4, 9 },
+        { NoteRest, 2 }, { NoteGb4, 2 }, { NoteGb4, 2 }, { NoteAb4, 2 },
+        { NoteA4, 2 },   { NoteAb4, 2 }, { NoteGb4, 1 }, { NoteE4, 3 },
+        { NoteAb4, 2 },  { NoteGb4, 2 }, { NoteGb4, 2 }, { NoteDb4, 2 }, { NoteE4, 8 },
     }
 };
 const int totalSongs = 4;
