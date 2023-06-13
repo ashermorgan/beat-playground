@@ -25,6 +25,8 @@ bool button2flag = false;
 
 float midi[129];
 void generateMIDI() {
+    // Generate MIDI pitch data
+    // Adapted from https://subsynth.sourceforge.net/midinote2freq.html
     for (int x = 0; x < 127; ++x) {
         midi[x] = (A4_HZ / 32.0) * pow(2.0, ((x - 9.0) / 12.0));
     }
@@ -65,11 +67,12 @@ struct Song {
     int tempo;
     int len;
     int countoff;
+    int rests;
     int notes[][2];
 };
 Song song1 = {
     // Twinkle Twinkle Little Star
-    500, 18, 4, {
+    500, 18, 4, 0, {
         { NoteBeat, 1 }, { NoteBeat, 1 }, { NoteBeat, 1 }, { NoteBeat, 1 },
 
         { NoteC4, 1 }, { NoteC4, 1 }, { NoteG4, 1 }, { NoteG4, 1 },
@@ -80,7 +83,7 @@ Song song1 = {
 };
 Song song2 = {
     // Centuries
-    170, 31, 3, {
+    170, 31, 3, 1, {
         { NoteBeat, 4 }, { NoteBeat, 4 }, { NoteBeat, 4 },
 
         { NoteE4, 2 }, { NoteGb4, 2 },
@@ -96,7 +99,7 @@ Song song2 = {
 };
 Song song3 = {
     // Blinding Lights
-    175, 23, 4, {
+    175, 23, 4, 0, {
         { NoteBeat, 2 }, { NoteBeat, 2 }, { NoteBeat, 2 }, { NoteBeat, 2 },
 
         { NoteF4, 13 }, { NoteF4, 1 },  { NoteG4, 2 },
@@ -109,7 +112,7 @@ Song song3 = {
 };
 Song song4 = {
     // Counting Stars
-    125, 46, 4, {
+    125, 46, 4, 2, {
         { NoteBeat, 4 }, { NoteBeat, 4 }, { NoteBeat, 4 }, { NoteBeat, 4 },
 
         { NoteGb4, 4 },  { NoteAb4, 4 }, { NoteB4, 4 },  { NoteAb4, 4 },
@@ -172,6 +175,18 @@ int currentCountoff() {
             return song4.countoff;
     }
 }
+int currentRests() {
+    switch(selectedSong) {
+        case 0:
+            return song1.rests;
+        case 1:
+            return song2.rests;
+        case 2:
+            return song3.rests;
+        case 3:
+            return song4.rests;
+    }
+}
 int currentPitch() {
     switch(selectedSong) {
         case 0:
@@ -229,8 +244,8 @@ void displayEndScreen() {
     gameStatus = EndScreen;
 
     // Calculate score (0-9)
-    float score = 9.0 * correctTaps / (currentLength() - currentCountoff() +
-        incorrectTaps);
+    float score = 9.0 * correctTaps / (currentLength() - currentCountoff() -
+        currentRests() + incorrectTaps);
 
     // Display score
     CircuitPlayground.clearPixels();
@@ -374,10 +389,10 @@ void loop() {
             case HomeScreen:
                 // Cycle through songs
                 if (button1flag) {
-                    selectedSong = (selectedSong - 1 + totalSongs) % totalSongs;
+                    selectedSong = (selectedSong + 1) % totalSongs;
                     updateHomeScreen();
                 } else {
-                    selectedSong = (selectedSong + 1) % totalSongs;
+                    selectedSong = (selectedSong - 1 + totalSongs) % totalSongs;
                     updateHomeScreen();
                 }
                 break;
