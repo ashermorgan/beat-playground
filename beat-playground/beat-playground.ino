@@ -34,101 +34,103 @@ void generateMIDI() {
     midi[129] = 1;
 }
 
-enum Note {
-    NoteC4  = 60,
-    NoteDb4 = 61,
-    NoteD4  = 62,
-    NoteEb4 = 63,
-    NoteE4  = 64,
-    NoteF4  = 65,
-    NoteGb4 = 66,
-    NoteG4  = 67,
-    NoteAb4 = 68,
-    NoteA4  = 69,
-    NoteBb4 = 70,
-    NoteB4  = 71,
-    NoteC5  = 72,
-    NoteDb5 = 73,
-    NoteD5  = 74,
-    NoteEb5 = 75,
-    NoteE5  = 76,
-    NoteF5  = 77,
-    NoteGb5 = 78,
-    NoteG5  = 79,
-    NoteAb5 = 80,
-    NoteA5  = 81,
-    NoteBb5 = 82,
-    NoteB5  = 83,
-    NoteBeat = 128,
-    NoteRest = 129,
+enum Pitch {
+    PitchC4  = 60,
+    PitchDb4 = 61,
+    PitchD4  = 62,
+    PitchEb4 = 63,
+    PitchE4  = 64,
+    PitchF4  = 65,
+    PitchGb4 = 66,
+    PitchG4  = 67,
+    PitchAb4 = 68,
+    PitchA4  = 69,
+    PitchBb4 = 70,
+    PitchB4  = 71,
+    PitchC5  = 72,
+    PitchDb5 = 73,
+    PitchD5  = 74,
+    PitchEb5 = 75,
+    PitchE5  = 76,
+    PitchF5  = 77,
+    PitchGb5 = 78,
+    PitchG5  = 79,
+    PitchAb5 = 80,
+    PitchA5  = 81,
+    PitchBb5 = 82,
+    PitchB5  = 83,
+    PitchBeat = 128,
+    PitchRest = 129,
 };
-
+struct Note {
+    Pitch pitch;
+    int duration;
+};
 struct Song {
     int tempo;
     int len;
     int countoff;
     int rests;
-    int notes[][2];
+    Note *notes;
 };
-Song song1 = {
-    // Twinkle Twinkle Little Star
-    500, 18, 4, 0, {
-        { NoteBeat, 1 }, { NoteBeat, 1 }, { NoteBeat, 1 }, { NoteBeat, 1 },
 
-        { NoteC4, 1 }, { NoteC4, 1 }, { NoteG4, 1 }, { NoteG4, 1 },
-        { NoteA4, 1 }, { NoteA4, 1 }, { NoteG4, 2 },
-        { NoteF4, 1 }, { NoteF4, 1 }, { NoteE4, 1 }, { NoteE4, 1 },
-        { NoteD4, 1 }, { NoteD4, 1 }, { NoteC4, 2 },
+const Song songs[] = {
+    {
+        // Twinkle Twinkle Little Star
+        500, 18, 4, 0, new Note[18] {
+            { PitchBeat, 1 }, { PitchBeat, 1 }, { PitchBeat, 1 }, { PitchBeat, 1 },
+
+            { PitchC4, 1 }, { PitchC4, 1 }, { PitchG4, 1 }, { PitchG4, 1 },
+            { PitchA4, 1 }, { PitchA4, 1 }, { PitchG4, 2 },
+            { PitchF4, 1 }, { PitchF4, 1 }, { PitchE4, 1 }, { PitchE4, 1 },
+            { PitchD4, 1 }, { PitchD4, 1 }, { PitchC4, 2 },
+        }
+    }, {
+        // Centuries
+        170, 31, 3, 1, new Note[31] {
+            { PitchBeat, 4 }, { PitchBeat, 4 }, { PitchBeat, 4 },
+
+            { PitchE4, 2 }, { PitchGb4, 2 },
+            { PitchG4, 2 }, { PitchGb4, 2 }, { PitchE4, 2 }, { PitchE4, 4 },
+            { PitchE4, 2 }, { PitchE4, 2 },  { PitchE4, 2 },
+            { PitchG4, 2 }, { PitchGb4, 2 }, { PitchE4, 2 }, { PitchE4, 4 },
+            { PitchE4, 2 }, { PitchE4, 2 },  { PitchD4, 2 },
+            { PitchE4, 2 }, { PitchB4, 1 },  { PitchB4, 9 }, { PitchRest, 2 }, { PitchD4, 2 },
+            { PitchE4, 2 }, { PitchB4, 1 },  { PitchB4, 3 }, { PitchD4, 2 },
+            { PitchE4, 2 }, { PitchB4, 1 },  { PitchB4, 3 },
+        }
+    }, {
+        // Blinding Lights
+        175, 23, 4, 0, new Note[23] {
+            { PitchBeat, 2 }, { PitchBeat, 2 }, { PitchBeat, 2 }, { PitchBeat, 2 },
+
+            { PitchF4, 13 }, { PitchF4, 1 },  { PitchG4, 2 },
+            { PitchF4, 2 },  { PitchEb4, 1 }, { PitchEb4, 2 }, { PitchC4, 1 },
+            { PitchEb4, 7 }, { PitchEb4, 3 },
+            { PitchBb4, 1 }, { PitchG4, 2 },  { PitchF4, 2 },  { PitchEb4, 3 },
+            { PitchBb4, 1 }, { PitchG4, 2 },  { PitchF4, 2 },  { PitchEb4, 1 }, { PitchF4, 4 },
+            { PitchF4, 2 },
+        }
+    }, {
+        // Counting Stars
+        125, 46, 4, 2, new Note[46] {
+            { PitchBeat, 4 }, { PitchBeat, 4 }, { PitchBeat, 4 }, { PitchBeat, 4 },
+
+            { PitchGb4, 4 },  { PitchAb4, 4 }, { PitchB4, 4 },  { PitchAb4, 4 },
+            { PitchGb4, 2 },  { PitchAb4, 2 }, { PitchGb4, 1 }, { PitchE4, 2 },  { PitchAb4, 9 },
+            { PitchRest, 2 }, { PitchGb4, 2 }, { PitchGb4, 2 }, { PitchAb4, 1 }, { PitchA4, 3 },
+            { PitchAb4, 2 },  { PitchGb4, 2 }, { PitchE4, 2 },
+            { PitchAb4, 4 },  { PitchDb4, 4 }, { PitchE4, 8 },
+
+            { PitchGb4, 4 },  { PitchAb4, 4 }, { PitchB4, 4 },  { PitchAb4, 4 },
+            { PitchGb4, 2 },  { PitchAb4, 2 }, { PitchGb4, 1 }, { PitchE4, 2 },  { PitchAb4, 9 },
+            { PitchRest, 2 }, { PitchGb4, 2 }, { PitchGb4, 2 }, { PitchAb4, 2 },
+            { PitchA4, 2 },   { PitchAb4, 2 }, { PitchGb4, 1 }, { PitchE4, 3 },
+            { PitchAb4, 2 },  { PitchGb4, 2 }, { PitchGb4, 2 }, { PitchDb4, 2 }, { PitchE4, 8 },
+        }
     }
 };
-Song song2 = {
-    // Centuries
-    170, 31, 3, 1, {
-        { NoteBeat, 4 }, { NoteBeat, 4 }, { NoteBeat, 4 },
-
-        { NoteE4, 2 }, { NoteGb4, 2 },
-        { NoteG4, 2 }, { NoteGb4, 2 }, { NoteE4, 2 }, { NoteE4, 4 },
-        { NoteE4, 2 }, { NoteE4, 2 },  { NoteE4, 2 },
-        { NoteG4, 2 }, { NoteGb4, 2 }, { NoteE4, 2 }, { NoteE4, 4 },
-        { NoteE4, 2 }, { NoteE4, 2 },  { NoteD4, 2 },
-        { NoteE4, 2 }, { NoteB4, 1 },  { NoteB4, 9 }, { NoteRest, 2 }, { NoteD4, 2 },
-        { NoteE4, 2 }, { NoteB4, 1 },  { NoteB4, 3 }, { NoteD4, 2 },
-        { NoteE4, 2 }, { NoteB4, 1 },  { NoteB4, 3 },
-
-    }
-};
-Song song3 = {
-    // Blinding Lights
-    175, 23, 4, 0, {
-        { NoteBeat, 2 }, { NoteBeat, 2 }, { NoteBeat, 2 }, { NoteBeat, 2 },
-
-        { NoteF4, 13 }, { NoteF4, 1 },  { NoteG4, 2 },
-        { NoteF4, 2 },  { NoteEb4, 1 }, { NoteEb4, 2 }, { NoteC4, 1 },
-        { NoteEb4, 7 }, { NoteEb4, 3 },
-        { NoteBb4, 1 }, { NoteG4, 2 },  { NoteF4, 2 },  { NoteEb4, 3 },
-        { NoteBb4, 1 }, { NoteG4, 2 },  { NoteF4, 2 },  { NoteEb4, 1 }, { NoteF4, 4 },
-        { NoteF4, 2 },
-    }
-};
-Song song4 = {
-    // Counting Stars
-    125, 46, 4, 2, {
-        { NoteBeat, 4 }, { NoteBeat, 4 }, { NoteBeat, 4 }, { NoteBeat, 4 },
-
-        { NoteGb4, 4 },  { NoteAb4, 4 }, { NoteB4, 4 },  { NoteAb4, 4 },
-        { NoteGb4, 2 },  { NoteAb4, 2 }, { NoteGb4, 1 }, { NoteE4, 2 },  { NoteAb4, 9 },
-        { NoteRest, 2 }, { NoteGb4, 2 }, { NoteGb4, 2 }, { NoteAb4, 1 }, { NoteA4, 3 },
-        { NoteAb4, 2 },  { NoteGb4, 2 }, { NoteE4, 2 },
-        { NoteAb4, 4 },  { NoteDb4, 4 }, { NoteE4, 8 },
-
-        { NoteGb4, 4 },  { NoteAb4, 4 }, { NoteB4, 4 },  { NoteAb4, 4 },
-        { NoteGb4, 2 },  { NoteAb4, 2 }, { NoteGb4, 1 }, { NoteE4, 2 },  { NoteAb4, 9 },
-        { NoteRest, 2 }, { NoteGb4, 2 }, { NoteGb4, 2 }, { NoteAb4, 2 },
-        { NoteA4, 2 },   { NoteAb4, 2 }, { NoteGb4, 1 }, { NoteE4, 3 },
-        { NoteAb4, 2 },  { NoteGb4, 2 }, { NoteGb4, 2 }, { NoteDb4, 2 }, { NoteE4, 8 },
-    }
-};
-const int totalSongs = 4;
+const int totalSongs = sizeof(songs) / sizeof(Song);
 
 void button1Press() {
     button1flag = true;
@@ -136,80 +138,6 @@ void button1Press() {
 
 void button2Press() {
     button2flag = true;
-}
-
-// Song data helpers
-int currentTempo() {
-    switch(selectedSong) {
-        case 0:
-            return song1.tempo;
-        case 1:
-            return song2.tempo;
-        case 2:
-            return song3.tempo;
-        case 3:
-            return song4.tempo;
-    }
-}
-int currentLength() {
-    switch(selectedSong) {
-        case 0:
-            return song1.len;
-        case 1:
-            return song2.len;
-        case 2:
-            return song3.len;
-        case 3:
-            return song4.len;
-    }
-}
-int currentCountoff() {
-    switch(selectedSong) {
-        case 0:
-            return song1.countoff;
-        case 1:
-            return song2.countoff;
-        case 2:
-            return song3.countoff;
-        case 3:
-            return song4.countoff;
-    }
-}
-int currentRests() {
-    switch(selectedSong) {
-        case 0:
-            return song1.rests;
-        case 1:
-            return song2.rests;
-        case 2:
-            return song3.rests;
-        case 3:
-            return song4.rests;
-    }
-}
-int currentPitch() {
-    switch(selectedSong) {
-        case 0:
-            return midi[song1.notes[currentNote][0]];
-        case 1:
-            return midi[song2.notes[currentNote][0]];
-        case 2:
-            return midi[song3.notes[currentNote][0]];
-        case 3:
-            return midi[song4.notes[currentNote][0]];
-    }
-}
-int currentDuration() {
-    switch(selectedSong) {
-        case 0:
-            return song1.notes[currentNote][1];
-        case 1:
-            return song2.notes[currentNote][1];
-        case 2:
-            return song3.notes[currentNote][1];
-        case 3:
-            return song4.notes[currentNote][1];
-    }
 }
 
 void setPixels(int color) {
@@ -236,7 +164,7 @@ void startGame() {
     incorrectTaps = 0;
 
     // Start playback delay
-    playbackDelay.start(currentTempo(), AsyncDelay::MILLIS);
+    playbackDelay.start(songs[selectedSong].tempo, AsyncDelay::MILLIS);
 }
 
 void displayEndScreen() {
@@ -244,8 +172,8 @@ void displayEndScreen() {
     gameStatus = EndScreen;
 
     // Calculate score (0-9)
-    float score = 9.0 * correctTaps / (currentLength() - currentCountoff() -
-        currentRests() + incorrectTaps);
+    float score = 9.0 * correctTaps / (songs[selectedSong].len -
+        songs[selectedSong].countoff - songs[selectedSong].rests + incorrectTaps);
 
     // Display score
     CircuitPlayground.clearPixels();
@@ -257,19 +185,21 @@ void displayEndScreen() {
 void nextBeat() {
     if (--currentBeat == 0) {
         // Next note
-        if (++currentNote >= currentLength()) {
+        if (++currentNote >= songs[selectedSong].len) {
             // End of song
             displayEndScreen();
         } else {
             // Reset beat counter
-            currentBeat = currentDuration();
+            currentBeat = songs[selectedSong].notes[currentNote].duration;
 
             // Play next note
             // CircuitPlayground.playTone() isn't fully non-blocking, so use
             //     Arduino tone() instead
-            tone(CPLAY_BUZZER, midi[NoteRest], 10);
+            tone(CPLAY_BUZZER, midi[PitchRest], 10);
             delay(10);
-            tone(CPLAY_BUZZER, currentPitch(), currentDuration() * currentTempo());
+            tone(CPLAY_BUZZER, midi[songs[selectedSong].notes[currentNote].pitch],
+                songs[selectedSong].notes[currentNote].duration *
+                songs[selectedSong].tempo);
         }
     }
 }
@@ -290,8 +220,9 @@ bool detectTap() {
 bool checkTap() {
     // Calculate time of next/previous notes
     int expiry = playbackDelay.getExpiry();
-    int lastNote = expiry - (currentDuration() - currentBeat + 1) * currentTempo();
-    int nextNote = expiry + (currentBeat - 1) * currentTempo();
+    int lastNote = expiry - (songs[selectedSong].notes[currentNote].duration -
+        currentBeat + 1) * songs[selectedSong].tempo;
+    int nextNote = expiry + (currentBeat - 1) * songs[selectedSong].tempo;
 
     // Determine if tap is in time
     int now = millis();
@@ -355,7 +286,7 @@ void loop() {
             if (sensorDelay.isExpired()) {
                 sensorDelay.repeat();
 
-                if (currentNote >= currentCountoff() - 1 && detectTap()) {
+                if (currentNote >= songs[selectedSong].countoff - 1 && detectTap()) {
                     if (checkTap()) {
                         // Correct tap
                         setPixels(0x00ff00);
@@ -402,7 +333,7 @@ void loop() {
                 gameStatus = HomeScreen;
 
                 // Stop audio
-                tone(CPLAY_BUZZER, midi[NoteRest], 1);
+                tone(CPLAY_BUZZER, midi[PitchRest], 1);
                 break;
 
             case EndScreen:
