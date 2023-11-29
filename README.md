@@ -2,8 +2,18 @@
 A rhythm game for the Adafruit Circuit Playground Express.
 
 ## Setup
-1. Install the `Arduino SAMD` board profile and the `Adafruit Circuit Playground` and `AsyncDelay` libraries using the Arduino IDE
-2. Compile and upload `./beat-playground` to your Circuit Playground Express
+1. Install the `Arduino SAMD` board profile and the `Adafruit Circuit Playground` and `AsyncDelay` libraries using the Arduino IDE or CLI
+```
+arduino-cli core install arduino:samd
+arduino-cli lib install 'Adafruit Circuit Playground'
+arduino-cli lib install AsyncDelay
+```
+
+2. Compile and upload Beat Playground to your Circuit Playground Express using the Arduino IDE or CLI
+```
+arduino-cli compile beat-playground --fqbn arduino:samd:adafruit_circuitplayground_m0
+arduino-cli upload beat-playground --port /dev/ttyACM0
+```
 
 ## Game Instructions
 1. Use the left and right buttons to select a song (see list of songs below). The current selected song number will be displayed on the NeoPixels
